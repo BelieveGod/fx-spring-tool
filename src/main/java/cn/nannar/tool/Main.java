@@ -4,6 +4,7 @@ import cn.nannar.tool.config.SpringConfig;
 import cn.nannar.tool.monitor.entity.TrainLog;
 import cn.nannar.tool.monitor.mapper.TrainLogMapper;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import javafx.application.Application;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import javax.sql.DataSource;
@@ -27,7 +28,7 @@ public class Main {
             TrainLog trainLog = trainLogMapper.selectById(45);
             System.out.println("trainLog = " + trainLog);
         }
-
+        Application.launch(FxGUI.class,args);
 
     }
 }
