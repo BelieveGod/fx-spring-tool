@@ -3,8 +3,11 @@ package cn.nannar.tool;
 import cn.nannar.tool.common.GlobalVar;
 import cn.nannar.tool.common.util.SpringContextHolder;
 import cn.nannar.tool.window.LoginStageBuilder;
+import cn.nannar.tool.window.TrainLogTable;
 import javafx.application.Application;
+import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
@@ -25,7 +28,9 @@ public class FxGUI extends Application {
         String join = String.join("\n", beanDefinitionNames);
 
         textArea.setText(join);
-        root.getChildren().add(textArea);
+
+        Node tableView = new TrainLogTable().getTableView();
+        root.getChildren().add(tableView);
 
 
 

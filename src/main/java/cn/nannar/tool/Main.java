@@ -25,8 +25,8 @@ public class Main {
         }else{
             System.out.println("success");
 
-            TrainLog trainLog = trainLogMapper.selectById(45);
-            System.out.println("trainLog = " + trainLog);
+//            TrainLog trainLog = trainLogMapper.selectById(45);
+//            System.out.println("trainLog = " + trainLog);
         }
         Application.launch(FxGUI.class,args);
 
