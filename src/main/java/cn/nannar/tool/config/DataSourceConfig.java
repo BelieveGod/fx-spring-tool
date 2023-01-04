@@ -53,9 +53,9 @@ import java.util.stream.Stream;
  * @author LTJ
  * @date 2022/12/22
  */
-@Configuration(proxyBeanMethods = false)
-@PropertySource("classpath:/application.properties")
-@MapperScan("cn.nannar.tool.**.mapper")
+//@Configuration(proxyBeanMethods = false)
+//@PropertySource("classpath:/application.propertiesbak")
+//@MapperScan("cn.nannar.tool.**.mapper")
 @Slf4j
 public class DataSourceConfig {
 
