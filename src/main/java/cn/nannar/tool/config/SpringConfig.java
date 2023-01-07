@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 @ComponentScan("cn.nannar.tool")
-@MapperScan("cn.nannar.tool.**.mapper")
+
 @EnableAutoConfiguration
 public class SpringConfig {
 

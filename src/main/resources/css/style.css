@@ -1,0 +1,24 @@
+#vBox{
+    -fx-pref-height: 150px;
+    -fx-pref-width: 790px;
+    -fx-border-width: 2px;
+    -fx-border-color: red;
+    -fx-border-style: solid;
+    -fx-padding: 15px;
+}
+
+#vBox1{
+    -fx-padding: 15px;
+}
+
+#vBox2{
+    -fx-spacing: 10px;
+}
+
+#style-scroll-pane{
+    -fx-pref-height: 200px;
+    -fx-pref-width: 790px;
+    -fx-border-width: 2px;
+    -fx-border-color: red;
+    -fx-border-style: solid;
+}

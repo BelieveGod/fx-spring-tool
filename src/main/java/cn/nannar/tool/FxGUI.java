@@ -3,6 +3,7 @@ package cn.nannar.tool;
 import cn.nannar.tool.common.GlobalVar;
 import cn.nannar.tool.common.util.SpringContextHolder;
 import cn.nannar.tool.window.LoginStageBuilder;
+import cn.nannar.tool.window.TrainInfoUI;
 import cn.nannar.tool.window.TrainLogTable;
 import javafx.application.Application;
 import javafx.scene.Node;
@@ -21,22 +22,10 @@ import javafx.stage.Window;
 public class FxGUI extends Application {
     @Override
     public void start(Stage stage) throws Exception {
-        StackPane root = new StackPane();
-        TextArea textArea = new TextArea();
-        textArea.setEditable(false);
-        String[] beanDefinitionNames = SpringContextHolder.getApplicationContext().getBeanDefinitionNames();
-        String join = String.join("\n", beanDefinitionNames);
+        stage.setTitle("车号生成辅助工具");
 
-        textArea.setText(join);
-
-        Node tableView = new TrainLogTable().getTableView();
-        root.getChildren().add(tableView);
-
-
-
-
-        Scene scene = new Scene(root, 600, 400);
-        stage.setScene(scene);
+        Scene trainInfoUI = new TrainInfoUI().createTrainInfoUI();
+        stage.setScene(trainInfoUI);
 
         Stage loginStage = LoginStageBuilder.buildLoginStage();
         loginStage.showAndWait();
