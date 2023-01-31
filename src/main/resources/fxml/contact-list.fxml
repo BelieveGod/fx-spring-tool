@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.shape.Rectangle?>
+<?import cn.nannar.tool.component.ContactDiv?>
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="cn.nannar.tool.controller.ContackListController"
+            fx:id="contactPane">
+    <top>
+        <BorderPane fx:id="contactIconBp">
+            <center>
+                <HBox spacing="10">
+                    <Pane styleClass="icon-item">
+                        <ImageView fitWidth="18" preserveRatio="true">
+                            <image>
+                                <Image url="@../image/camera.png"/>
+                            </image>
+                        </ImageView>
+                    </Pane>
+                    <Pane styleClass="icon-item">
+                        <ImageView fitWidth="18" preserveRatio="true">
+                            <image>
+                                <Image url="@../image/comment.png"/>
+                            </image>
+                        </ImageView>
+                    </Pane>
+                    <Pane styleClass="icon-item">
+                        <ImageView fitWidth="18" preserveRatio="true">
+                            <image>
+                                <Image url="@../image/comment.png"/>
+                            </image>
+                        </ImageView>
+                    </Pane>
+                    <Pane styleClass="icon-item">
+                        <ImageView fitWidth="18" preserveRatio="true">
+                            <image>
+                                <Image url="@../image/comment.png"/>
+                            </image>
+                        </ImageView>
+                    </Pane>
+                    <Pane styleClass="icon-item">
+                        <ImageView fitWidth="18" preserveRatio="true">
+                            <image>
+                                <Image url="@../image/favorite.png"/>
+                            </image>
+                        </ImageView>
+                    </Pane>
+                </HBox>
+            </center>
+            <right>
+                <AnchorPane styleClass="icon-item">
+                    <ImageView fitWidth="18" preserveRatio="true">
+                        <image>
+                            <Image url="@../image/more.png"/>
+                        </image>
+                    </ImageView>
+                </AnchorPane>
+            </right>
+        </BorderPane>
+    </top>
+    <center>
+        <ScrollPane>
+            <VBox fx:id="contactVbox" style="-fx-padding: 0 0 0 10px;">
+            </VBox>
+        </ScrollPane>
+    </center>
+</BorderPane>

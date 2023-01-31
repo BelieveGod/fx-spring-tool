@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Configuration;
  * @author LTJ
  * @date 2022/10/13
  */
-@Configuration
+//@Configuration
 @MapperScan("cn.nannar.tool.**.mapper")
 public class MyBatisPlusConfiguration {
 

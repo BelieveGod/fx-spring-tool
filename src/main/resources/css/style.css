@@ -2,7 +2,7 @@
     -fx-pref-height: 150px;
     -fx-pref-width: 790px;
     -fx-border-width: 2px;
-    -fx-border-color: red;
+    /*-fx-border-color: red;*/
     -fx-border-style: solid;
     -fx-padding: 15px;
 }
@@ -19,6 +19,6 @@
     -fx-pref-height: 200px;
     -fx-pref-width: 790px;
     -fx-border-width: 2px;
-    -fx-border-color: red;
+    /*-fx-border-color: red;*/
     -fx-border-style: solid;
 }

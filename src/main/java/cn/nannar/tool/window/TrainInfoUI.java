@@ -5,7 +5,10 @@ import cn.hutool.core.convert.Convert;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.io.IoUtil;
 import cn.hutool.core.util.StrUtil;
+import cn.nannar.tool.common.constant.MfrsPartTypeEnum;
+import cn.nannar.tool.common.util.XmlHelper;
 import cn.nannar.tool.dto.TrainGenerateDTO;
+import cn.nannar.tool.monitor.entity.MfrsPartRel;
 import cn.nannar.tool.monitor.entity.TrainInfo;
 import cn.nannar.tool.monitor.entity.TrainPart;
 import cn.nannar.tool.monitor.entity.TrainPartRel;
@@ -19,9 +22,12 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import lombok.Data;
+import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
+import org.dom4j.DocumentException;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -48,6 +54,7 @@ public class TrainInfoUI {
     private File trainNoFile;
 
     private FileChooser fileChooser;
+    private DirectoryChooser directoryChooser=new DirectoryChooser();
     private TextField carriageNumField;
     private VBox styleVbox;
     private TextField trainNoPatternField;
@@ -65,6 +72,8 @@ public class TrainInfoUI {
     TextArea textArea = new TextArea();
     private FlowPane groupFlowPane;
     private StackPane stackPane;
+
+    private XmlHelper xmlHelper;
 
     {
         stringDialog.setHeight(400);
@@ -89,7 +98,8 @@ public class TrainInfoUI {
 
 
 
-    public Scene createTrainInfoUI(){
+    public Scene createTrainInfoUI() throws DocumentException {
+        xmlHelper = new XmlHelper();
         Region region = initSceneTree();
         initEventHandler();
         Scene scene = new Scene(region,800,600);
@@ -248,14 +258,20 @@ public class TrainInfoUI {
     private void initEventHandler(){
         trainNoChooseBtn.setOnAction(event -> {
             fileChooser.setTitle("选择自定义的车号文件");
+            String trainNoFile = xmlHelper.getTrainNoFile();
+            if(StrUtil.isNotBlank(trainNoFile)){
+                fileChooser.setInitialDirectory(new File(trainNoFile));
+            }
             File file = fileChooser.showOpenDialog(trainNoChooseBtn.getScene().getWindow());
             if(file==null){
-                trainNoFile=null;
+                this.trainNoFile =null;
                 trainNoFileField.setText(null);
 
             }else{
                 trainNoFileField.setText(file.getAbsolutePath());
-                trainNoFile=file;
+                this.trainNoFile =file;
+                trainNoPatternField.setText("");
+                xmlHelper.setTrainNoFile(file.getParent());
             }
         });
 
@@ -363,20 +379,27 @@ public class TrainInfoUI {
                 // 界面添加
                 Platform.runLater(()->{
                     Text text = new Text(groupName);
+                    text.setOnMouseClicked(event1 -> {
+                        trainGenerateDTOList.remove(trainGenerateDTO);
+                        groupFlowPane.getChildren().remove(text);
+                    });
                     groupFlowPane.getChildren().add(text);
                 });
             });
         });
 
         generateBtn.setOnAction(event -> {
-            fileChooser.setTitle("选择输出位置");
-            fileChooser.setInitialFileName("trainAuto.sql");
-            fileChooser.setSelectedExtensionFilter(new FileChooser.ExtensionFilter("SQL文件", ".sql"));
-            File file = fileChooser.showSaveDialog(generateBtn.getScene().getWindow());
+            directoryChooser.setTitle("选择输出位置");
+            String outPutDirectory = xmlHelper.getOutPutDirectory();
+            if(StrUtil.isNotBlank(outPutDirectory)){
+                directoryChooser.setInitialDirectory(new File(outPutDirectory));
+            }
+            File file = directoryChooser.showDialog(generateBtn.getScene().getWindow());
             if(file!=null){
                 stackPane.getChildren().add(progressIndicator);
                 CompletableFuture.runAsync(() -> {
                     try {
+                        xmlHelper.setOutPutDirectory(file.getAbsolutePath());
                         outputSql(file);
                     } catch (Exception e) {
                         log.error("导出错误",e);
@@ -388,6 +411,31 @@ public class TrainInfoUI {
             }
 
         });
+
+        trainNoPatternField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if(!StrUtil.isBlank(newValue)){
+                trainNoFile=null;
+                trainNoFileField.setText(null);
+            }
+        });
+
+        carriageNumField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if(StrUtil.isNotBlank(oldValue)){
+                for (PartTypeInfo partTypeInfo : partTypeInfoList) {
+                    partTypeInfo.checkBox.setSelected(false);
+                }
+            }
+        });
+
+        ptgNumField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if(StrUtil.isNotBlank(oldValue)){
+                for (PartTypeInfo partTypeInfo : partTypeInfoList) {
+                    partTypeInfo.checkBox.setSelected(false);
+                }
+            }
+        });
+
+
     }
 
     private void initCss(){
@@ -404,12 +452,18 @@ public class TrainInfoUI {
         Button button = new Button("设置命名风格");
         Button button1 = new Button("预览命名风格");
         hBox.getChildren().addAll(text, text2, button, button1);
-
+        partTypeInfo.styleFile=null;
         button.setOnAction(event -> {
+            String styleDirectory = xmlHelper.getStyleDirectory();
+            fileChooser.setTitle("选择命名风格文件");
+            if(StrUtil.isNotBlank(styleDirectory)){
+                fileChooser.setInitialDirectory(new File(styleDirectory));
+            }
             File file = fileChooser.showOpenDialog(button.getScene().getWindow());
             if(file!=null){
                 partTypeInfo.styleFile=file;
                 text2.setText(StrUtil.format("命名风格：{}", file.getName()));
+                xmlHelper.setStyleDirectory(file.getParent());
             }
         });
 
@@ -464,97 +518,136 @@ public class TrainInfoUI {
         List<TrainInfo> trainInfoList = new LinkedList<>();
         List<TrainPart> trainPartList = new LinkedList<>();
         List<TrainPartRel> trainPartRelList = new LinkedList<>();
+        List<MfrsPartRel> mfrsPartRelList = new LinkedList<>();
+
         for (TrainGenerateDTO trainGenerateDTO : trainGenerateDTOList) {
+            List<String> trainNoList = new LinkedList<>();
             if (!trainGenerateDTO.getUseTrainNoFile()) {
                 String trainNoPattern = trainGenerateDTO.getTrainNoPattern();
-                Matcher matcher = pattern.matcher(trainNoPattern);
-                matcher.find();
-                int groupCount = matcher.groupCount();
-                log.info("match {}：{}个", pattern.pattern(), groupCount);
+                int groupCount = findGroupCount(trainNoPattern);
                 Integer trainNumBegin = trainGenerateDTO.getTrainNumBegin();
                 Integer trainNumEnd = trainGenerateDTO.getTrainNumEnd();
+                for (int i = trainNumBegin; i <= trainNumEnd; i++) {
+                    Object[] params = createParams(groupCount, i);
+                    String trainNo = String.format(trainNoPattern, params);
+                    trainNoList.add(trainNo);
+                }
+            }else {
+                File customTrainNoFile = trainGenerateDTO.getCustomTrainNoFile();
+                List<String> trainNos = FileUtil.readLines(customTrainNoFile, StandardCharsets.UTF_8);
+                trainNoList.addAll(trainNos);
+            }
+            for (String trainNo : trainNoList) {
+                TrainInfo trainInfo = new TrainInfo();
+                trainInfo.setId(trainInfoIdGenerator.incrementAndGet());
+                trainInfo.setTrainNo(trainNo);
+                trainInfo.setGroupCount(trainGenerateDTO.getCarriageNum());
+                trainInfo.setPantographCount(trainGenerateDTO.getPtgNum());
+                trainInfoList.add(trainInfo);
 
-                for(int i=trainNumBegin;i<=trainNumEnd;i++){
-                    String trainNo = String.format(trainNoPattern, i);
-                    TrainInfo trainInfo = new TrainInfo();
-                    trainInfo.setId(trainInfoIdGenerator.incrementAndGet());
-                    trainInfo.setTrainNo(trainNo);
-                    trainInfo.setGroupCount(trainGenerateDTO.getCarriageNum());
-                    trainInfo.setPantographCount(trainGenerateDTO.getPtgNum());
-                    trainInfoList.add(trainInfo);
+                List<TrainGenerateDTO.PartTypeDTO> partTypeDTOList = trainGenerateDTO.getPartTypeDTOList();
+                Map<Integer, Map<Integer, String>> partTypeMap = partTypeDTOList.stream().collect(Collectors.toMap(TrainGenerateDTO.PartTypeDTO::getPartType, TrainGenerateDTO.PartTypeDTO::getPartNameMap));
+                boolean hasMotorRel = false;
+                if (partTypeMap.containsKey(TrainPart.CARRIAGE) && partTypeMap.containsKey(TrainPart.MOTOR)) {
+                    hasMotorRel = true;
+                }
 
-                    List<TrainGenerateDTO.PartTypeDTO> partTypeDTOList = trainGenerateDTO.getPartTypeDTOList();
-                    Map<Integer, Map<Integer, String>> partTypeMap = partTypeDTOList.stream().collect(Collectors.toMap(TrainGenerateDTO.PartTypeDTO::getPartType, TrainGenerateDTO.PartTypeDTO::getPartNameMap));
-                    boolean hasMotorRel=false;
-                    if (partTypeMap.containsKey(TrainPart.CARRIAGE) &&partTypeMap.containsKey(TrainPart.MOTOR)) {
-                        hasMotorRel=true;
+                Map<String, TrainPartRel> partRelMap = new HashMap<>();
+                if (hasMotorRel) {
+
+                    Map<Integer, String> motorPartNameMap = partTypeMap.get(TrainPart.MOTOR);
+                    for (int j = 1; j <= motorPartNameMap.size(); j++) {
+                        TrainPartRel trainPartRel = new TrainPartRel();
+                        trainPartRelList.add(trainPartRel);
+                        int carriageByMotor = getCarriageByMotor(j);
+                        partRelMap.put(StrUtil.format("{}_{}_{}", trainNo, carriageByMotor, j), trainPartRel);
                     }
+                }
 
-                    Map<String, TrainPartRel> partRelMap = new HashMap<>();
-                    if(hasMotorRel){
+                for (TrainGenerateDTO.PartTypeDTO partTypeDTO : partTypeDTOList) {
+                    Map<Integer, String> partNameMap = partTypeDTO.getPartNameMap();
 
-                        Map<Integer, String> motorPartNameMap = partTypeMap.get(TrainPart.MOTOR);
-                        for(int j=1;j<=motorPartNameMap.size();j++){
-                            TrainPartRel trainPartRel = new TrainPartRel();
-                            trainPartRelList.add(trainPartRel);
-                            int carriageByMotor = getCarriageByMotor(j);
-                            partRelMap.put(StrUtil.format("{}_{}_{}", trainNo, carriageByMotor, j), trainPartRel);
-                        }
-                    }
-
-                    for (TrainGenerateDTO.PartTypeDTO partTypeDTO : partTypeDTOList) {
-                        Map<Integer, String> partNameMap = partTypeDTO.getPartNameMap();
-
-                        // 定位容器 ，trainno_carriage_motor
-                        for (Map.Entry<Integer, String> entry : partNameMap.entrySet()) {
-                            TrainPart trainPart = new TrainPart();
-                            trainPart.setId(trainPartIdGenerator.incrementAndGet());
-                            trainPart.setTrainNo(trainNo);
-                            trainPart.setTrainNoId(trainInfo.getId());
-                            trainPart.setPartType(partTypeDTO.getPartType());
-                            trainPart.setPartCode(entry.getKey());
-                            trainPart.setPartName(entry.getValue());
-                            trainPartList.add(trainPart);
-                            if(hasMotorRel){
-                                if(partTypeDTO.getPartType().equals(TrainPart.CARRIAGE)){
-                                    List<Integer> motorCodeList = getmotorByCarriage(entry.getKey(),partNameMap.size());
-                                    if(CollUtil.isNotEmpty(motorCodeList)){
-                                        for (Integer motorCode : motorCodeList) {
-                                            TrainPartRel trainPartRel = partRelMap.get(StrUtil.format("{}_{}_{}", trainNo, entry.getKey(), motorCode));
-                                            if(trainPartRel!=null){
-                                                trainPartRel.setCId(trainPart.getId());
-                                            }
+                    // 定位容器 ，trainno_carriage_motor
+                    for (Map.Entry<Integer, String> entry : partNameMap.entrySet()) {
+                        TrainPart trainPart = new TrainPart();
+                        trainPart.setId(trainPartIdGenerator.incrementAndGet());
+                        trainPart.setTrainNo(trainNo);
+                        trainPart.setTrainNoId(trainInfo.getId());
+                        trainPart.setPartType(partTypeDTO.getPartType());
+                        trainPart.setPartCode(entry.getKey());
+                        trainPart.setPartName(entry.getValue());
+                        trainPartList.add(trainPart);
+                        if (hasMotorRel) {
+                            if (partTypeDTO.getPartType().equals(TrainPart.CARRIAGE)) {
+                                List<Integer> motorCodeList = getmotorByCarriage(entry.getKey(), partNameMap.size());
+                                if (CollUtil.isNotEmpty(motorCodeList)) {
+                                    for (Integer motorCode : motorCodeList) {
+                                        TrainPartRel trainPartRel = partRelMap.get(StrUtil.format("{}_{}_{}", trainNo, entry.getKey(), motorCode));
+                                        if (trainPartRel != null) {
+                                            trainPartRel.setCId(trainPart.getId());
                                         }
                                     }
-                                }else if(partTypeDTO.getPartType().equals(TrainPart.MOTOR)){
-                                    int carriageCode = getCarriageByMotor(entry.getKey());
-                                    TrainPartRel trainPartRel = partRelMap.get(StrUtil.format("{}_{}_{}", trainNo, carriageCode, entry.getKey()));
-                                    if(trainPartRel!=null){
-                                        trainPartRel.setMId(trainPart.getId());
-                                    }
+                                }
+                            } else if (partTypeDTO.getPartType().equals(TrainPart.MOTOR)) {
+                                int carriageCode = getCarriageByMotor(entry.getKey());
+                                TrainPartRel trainPartRel = partRelMap.get(StrUtil.format("{}_{}_{}", trainNo, carriageCode, entry.getKey()));
+                                if (trainPartRel != null) {
+                                    trainPartRel.setMId(trainPart.getId());
                                 }
                             }
-
                         }
+
                     }
                 }
             }
+            MfrsPartTypeEnum[] values = MfrsPartTypeEnum.values();
+            for (String trainNo : trainNoList) {
+                for (MfrsPartTypeEnum value : values) {
+                    MfrsPartRel mfrsPartRel = new MfrsPartRel();
+                    mfrsPartRel.setTrainNo(trainNo);
+                    mfrsPartRel.setPartType(value.getCustomType());
+                    mfrsPartRelList.add(mfrsPartRel);
+                }
+            }
         }
-        log.info("输出脚本");
-        FileUtil.del(file);
+        log.info("输出脚本目录：{}",file.getAbsolutePath());
+
+        File trainInfoFile = new File(file, "trainInfo.sql");
+        FileUtil.del(trainInfoFile);
+        FileUtil.appendUtf8String("SET IDENTITY_INSERT train_info ON;" + lineSperator, trainInfoFile);
         for (TrainInfo trainInfo : trainInfoList) {
             String insert = trainInfo.getInsert();
-            FileUtil.appendUtf8String(insert + lineSperator,file);
+            FileUtil.appendUtf8String(insert + lineSperator,trainInfoFile);
         }
+        FileUtil.appendUtf8String("SET IDENTITY_INSERT train_info OFF;" + lineSperator, trainInfoFile);
+
+
+        File trainPartFile = new File(file, "trainParts.sql");
+        FileUtil.del(trainPartFile);
+        FileUtil.appendUtf8String("SET IDENTITY_INSERT train_parts ON;" + lineSperator, trainPartFile);
         for (TrainPart trainPart : trainPartList) {
             String insert = trainPart.getInsert();
-            FileUtil.appendUtf8String(insert + lineSperator,file);
+            FileUtil.appendUtf8String(insert + lineSperator,trainPartFile);
+        }
+        FileUtil.appendUtf8String("SET IDENTITY_INSERT train_parts OFF;" + lineSperator, trainPartFile);
+
+        if(CollUtil.isNotEmpty(trainPartRelList)){
+            File trainPartRelFile = new File(file, "trainPartsRel.sql");
+            FileUtil.del(trainPartRelFile);
+            for (TrainPartRel trainPartRel : trainPartRelList) {
+                String insert =trainPartRel.getInsert();
+                FileUtil.appendUtf8String(insert + lineSperator,trainPartRelFile);
+            }
         }
 
-        for (TrainPartRel trainPartRel : trainPartRelList) {
-            String insert =trainPartRel.getInsert();
-            FileUtil.appendUtf8String(insert + lineSperator,file);
+        File mfrsPartRelFile = new File(file, "mfrsPartRel.sql");
+        FileUtil.del(mfrsPartRelFile);
+
+        for (MfrsPartRel mfrsPartRel : mfrsPartRelList) {
+            String insert = mfrsPartRel.getInsert();
+            FileUtil.appendUtf8String(insert + lineSperator,mfrsPartRelFile);
         }
+
     }
 
 
@@ -573,5 +666,31 @@ public class TrainInfoUI {
             motorList.add(i1);
         }
         return motorList;
+    }
+
+    private int findGroupCount(String str){
+        Matcher matcher = pattern.matcher(str);
+        int matchCount=0;
+        boolean b=false;
+        do {
+            b = matcher.find();
+            if (b) {
+                matchCount++;
+            }
+        } while (b);
+        return matchCount;
+    }
+
+    private Object[] createParams(int count,int n){
+        Object[] params = new Object[count];
+        for(int i=0;i<count;i++){
+            int i1 = n * count - (count - (i+1));
+            params[i]=i1;
+        }
+        return params;
+    }
+
+    public void saveXml(){
+        xmlHelper.save();
     }
 }

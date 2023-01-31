@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.geometry.Insets?>
+<StackPane xmlns="http://javafx.com/javafx"
+           xmlns:fx="http://javafx.com/fxml"
+           fx:controller="cn.nannar.tool.controller.MainController"
+           stylesheets="@../css/main.css"
+           prefHeight="660.0" prefWidth="975">
+
+    <BorderPane fx:id="mianBorderpane" styleClass="borderPaneDefault">
+        <!--标题栏-->
+        <top>
+
+        </top>
+        <center>
+            <BorderPane>
+                <left>
+                    <BorderPane>
+                        <left>
+                            <fx:include source="menu-column.fxml"/>
+                        </left>
+                        <center>
+                            <fx:include source="contact-list.fxml"/>
+                        </center>
+                    </BorderPane>
+                </left>
+                <center>
+                    <BorderPane>
+                            <center>
+                                <fx:include source="chat-pane.fxml"/>
+                            </center>
+                    </BorderPane>
+                </center>
+            </BorderPane>
+        </center>
+    </BorderPane>
+</StackPane>

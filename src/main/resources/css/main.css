@@ -1,0 +1,165 @@
+#titleBorderpane{
+    -fx-background-color: #0076F6;
+    -fx-pref-height: 35px;
+    -fx-max-height: 35px;
+    -fx-min-height: 35px;
+}
+
+#searchFd {
+    -fx-pref-width: 365px;
+    -fx-pref-height: 30px;
+    -fx-background-color: #3D97F8;
+    -fx-background-radius: 0,2,2,0;
+    -fx-prompt-text-fill: #A0C9FB;
+    -fx-text-fill: white;
+    -fx-padding: 0,0,0,100;
+    /*-fx-border-color: red;*/
+    -fx-border-width: 0;
+}
+
+#btnBar{
+    -fx-padding: 0px 15px 0px 15px;
+    -fx-max-height: 30px;
+    /*-fx-border-color: red;*/
+    -fx-border-width: 1;
+    -fx-alignment: center;
+}
+
+StackPane
+{
+    -fx-background-color: transparent;
+}
+.shadowPaneFocused
+{
+    -fx-background-color: WHITE;
+    -fx-effect: dropshadow(three-pass-box, #333333, 9, 0, 0, 0 );
+    -fx-background-insets: 9;
+}
+.shadowPaneUnFocused
+{
+    -fx-background-color: WHITE;
+    -fx-effect: dropshadow(three-pass-box, #333333, 5, 0, 0, 0 );
+    -fx-background-insets: 9;
+}
+.borderPaneDefault
+{
+    -fx-background-color:WHITE;
+    -fx-padding: 9;
+}
+.borderPaneMaximized
+{
+    -fx-background-color:WHITE;
+    -fx-padding: 0;
+}
+
+/* 联系人面板*/
+#contactIconBp{
+    -fx-pref-height: 40px;
+    -fx-max-height: 40px;
+    -fx-min-width: 40px;
+    -fx-padding: 10px 10px 10px 15px;
+}
+
+.icon-item:hover{
+    -fx-background-color: #DEDFE0;
+}
+
+#contactPane{
+    -fx-background-color: white;
+    -fx-pref-width: 240px;
+    -fx-min-width: 240px;
+    -fx-max-width: 240px;
+    /*-fx-border-color: purple;*/
+}
+
+.contact-div{
+    -fx-max-width: 223px;
+    -fx-pref-width: 223px;
+    -fx-pref-height: 67px;
+    -fx-min-height: 67px;
+    -fx-max-height: 67px;
+    -fx-padding: 15px 5px 15px 5px;
+    -fx-background-radius: 10px;
+}
+.contact-div .nickName{
+    -fx-text-fill: #171A1D;
+    -fx-font-size: 14px;
+
+}
+
+.contact-div .digest{
+    -fx-text-fill: #7D8082;
+    -fx-font-size: 13px;
+}
+
+.contact-div .time{
+    -fx-text-fill: #A3A4A6;
+    -fx-font-size: 11px;
+}
+#chatPane{
+    -fx-background-color: #f1f2f3;
+    /*-fx-border-color: orange;*/
+    -fx-padding: 0 15px 15px 15px;
+}
+
+.hidden{
+    visibility: hidden;
+}
+
+.contact-div:hover .hidden{
+    visibility: visible;
+}
+
+.menu-item,.menu-item-2{
+    -fx-padding: 10;
+    -fx-border-radius: 5px;
+    -fx-pref-width: 125px;
+    -fx-pref-height: 30px;
+    /*-fx-border-color: red;*/
+    -fx-max-width: 125px;
+    -fx-max-height: 30px;
+    -fx-spacing: 5px;
+    -fx-alignment: center-left;
+}
+
+.menu-item-2{
+    -fx-spacing: 15px;
+}
+
+.menu-item:hover,.menu-item-2:hover{
+    -fx-background-color: #DEDFE0;
+}
+
+.menu-item-2 Label{
+    -fx-text-fill: #171A1D;
+    -fx-font-size: 13px;
+}
+
+
+/*聊天面板*/
+.chat-title-bp{
+    -fx-max-height: 50px;
+    -fx-min-height: 50px;
+    -fx-pref-height: 50px;
+    -fx-border-color: #DADBDC;
+    -fx-border-width: 0 0 1px 0;
+    -fx-padding: 10px 0 10px 0;
+}
+
+.chat-title-nickname{
+    -fx-text-fill: #171A1D;
+    -fx-font-size: 14px;
+}
+
+.chat-title-badge{
+    -fx-text-fill: #007FFF;
+    -fx-font-size: 10px;
+    -fx-border-color: #79B8F9;
+    -fx-border-radius: 4px;
+    -fx-padding: 0 2px 0 2px;
+}
+
+.chat-title-info{
+    -fx-text-fill: #AEAEB2;
+    -fx-font-size: 12px;
+}

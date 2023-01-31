@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.shape.Rectangle?>
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="cn.nannar.tool.controller.MenuController"
+            fx:id="menuCol"
+            stylesheets="@../css/menu.css">
+    <top>
+        <HBox styleClass="menu-item" >
+                <ImageView  fitWidth="30" preserveRatio="true">
+                    <image>
+                        <Image url="@../image/nannar.png" ></Image>
+                    </image>
+                </ImageView>
+                <Label style="-fx-pref-width: 60px;-fx-max-width: 60px;-fx-text-fill: #78797B;-fx-font-size: 11px;">
+                    东莞诺丽股份科技有限公司
+                </Label>
+                <ImageView fitHeight="10" fitWidth="10" preserveRatio="true">
+                    <image>
+                        <Image url="@../image/arrow-down-filling.png" ></Image>
+                    </image>
+                </ImageView>
+        </HBox>
+    </top>
+    <center>
+        <BorderPane>
+            <top>
+                <VBox BorderPane.alignment="TOP_CENTER" spacing="5"
+                      style="-fx-border-color: #DADBDC;-fx-border-width: 0 0 1px 0;-fx-pref-height: 150px;-fx-max-height: 150px">
+                    <HBox styleClass="menu-item-2">
+                        <ImageView fitWidth="20" preserveRatio="true">
+                            <image>
+                                <Image url="@../image/file-delete.png"></Image>
+                            </image>
+                        </ImageView>
+                        <Label>
+                            消息
+                            <HBox.hgrow>ALWAYS</HBox.hgrow>
+                        </Label>
+                        <ImageView fitWidth="15" preserveRatio="true">
+                            <image>
+                                <Image url="@../image/bubble.png"></Image>
+                            </image>
+                        </ImageView>
+                    </HBox>
+
+                    <HBox styleClass="menu-item-2">
+                        <ImageView fitWidth="20" preserveRatio="true">
+                            <image>
+                                <Image url="@../image/file-delete.png"></Image>
+                            </image>
+                        </ImageView>
+                        <Label>
+                            文档
+                            <HBox.hgrow>ALWAYS</HBox.hgrow>
+                        </Label>
+                    </HBox>
+                    <HBox styleClass="menu-item-2">
+                        <ImageView fitWidth="20" preserveRatio="true">
+                            <image>
+                                <Image url="@../image/file-delete.png"></Image>
+                            </image>
+                        </ImageView>
+                        <Label>
+                            工作台
+                            <HBox.hgrow>ALWAYS</HBox.hgrow>
+                        </Label>
+                    </HBox>
+                    <HBox styleClass="menu-item-2">
+                        <ImageView fitWidth="20" preserveRatio="true">
+                            <image>
+                                <Image url="@../image/file-delete.png"></Image>
+                            </image>
+                        </ImageView>
+                        <Label>
+                            通讯录
+                            <HBox.hgrow>ALWAYS</HBox.hgrow>
+                        </Label>
+                    </HBox>
+                </VBox>
+            </top>
+            <center>
+                <VBox BorderPane.alignment="TOP_CENTER">
+                    <HBox styleClass="menu-item-2">
+                        <ImageView fitWidth="20" preserveRatio="true">
+                            <image>
+                                <Image url="@../image/file-delete.png"></Image>
+                            </image>
+                        </ImageView>
+                        <Label>
+                            会议
+                            <HBox.hgrow>ALWAYS</HBox.hgrow>
+                        </Label>
+                    </HBox>
+                    <HBox styleClass="menu-item-2">
+                        <ImageView fitWidth="20" preserveRatio="true">
+                            <image>
+                                <Image url="@../image/file-delete.png"></Image>
+                            </image>
+                        </ImageView>
+                        <Label>
+                            云盘
+                            <HBox.hgrow>ALWAYS</HBox.hgrow>
+                        </Label>
+                    </HBox>
+                    <HBox styleClass="menu-item-2">
+                        <ImageView fitWidth="20" preserveRatio="true">
+                            <image>
+                                <Image url="@../image/file-delete.png"></Image>
+                            </image>
+                        </ImageView>
+                        <Label>
+                            日历
+                            <HBox.hgrow>ALWAYS</HBox.hgrow>
+                        </Label>
+                    </HBox>
+                    <HBox styleClass="menu-item-2">
+                        <ImageView fitWidth="20" preserveRatio="true">
+                            <image>
+                                <Image url="@../image/file-delete.png"></Image>
+                            </image>
+                        </ImageView>
+                        <Label>
+                            待办
+                            <HBox.hgrow>ALWAYS</HBox.hgrow>
+                        </Label>
+                    </HBox>
+                    <HBox styleClass="menu-item-2">
+                        <ImageView fitWidth="20" preserveRatio="true">
+                            <image>
+                                <Image url="@../image/file-delete.png"></Image>
+                            </image>
+                        </ImageView>
+                        <Label>
+                            项目
+                            <HBox.hgrow>ALWAYS</HBox.hgrow>
+                        </Label>
+                    </HBox>
+                    <HBox styleClass="menu-item-2">
+                        <ImageView fitWidth="20" preserveRatio="true">
+                            <image>
+                                <Image url="@../image/file-delete.png"></Image>
+                            </image>
+                        </ImageView>
+                        <Label>
+                            更多
+                            <HBox.hgrow>ALWAYS</HBox.hgrow>
+                        </Label>
+                    </HBox>
+
+                </VBox>
+            </center>
+        </BorderPane>
+    </center>
+</BorderPane>

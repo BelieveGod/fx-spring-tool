@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.shape.Rectangle?>
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="cn.nannar.tool.controller.ChaPaneController"
+            fx:id="chatPane">
+    <top>
+        <BorderPane styleClass="chat-title-bp" >
+            <center>
+                <BorderPane>
+                    <left>
+                        <ImageView fitHeight="33" fitWidth="33" preserveRatio="true">
+                            <image>
+                                <Image url="@../image/avatar.png"></Image>
+                            </image>
+                            <clip>
+                                <Rectangle width="33" height="33" arcWidth="10" arcHeight="10"></Rectangle>
+                            </clip>
+                        </ImageView>
+                    </left>
+                    <center>
+                        <BorderPane>
+                            <center>
+                                <HBox spacing="5" style="-fx-alignment: center-left;-fx-padding: 0 0 0 10px">
+                                    <Label styleClass="chat-title-nickname">
+                                        厦门805/865/838项目群
+                                    </Label>
+                                    <Label styleClass="chat-title-badge">
+                                        内部
+                                    </Label>
+                                </HBox>
+                            </center>
+                            <bottom>
+                                <HBox style="-fx-alignment: center-left;-fx-padding: 0 0 0 10px">
+                                    <Label styleClass="chat-title-info">
+                                        归属于东莞市诺丽科技股份有限公司
+                                    </Label>
+                                </HBox>
+                            </bottom>
+                        </BorderPane>
+                    </center>
+
+                </BorderPane>
+            </center>
+            <right>
+                <HBox spacing="10">
+                    <Pane styleClass="icon-item" style="-fx-padding: 3px">
+                        <ImageView fitWidth="24" preserveRatio="true">
+                            <image>
+                                <Image url="@../image/add.png"/>
+                            </image>
+                        </ImageView>
+                    </Pane>
+                    <Pane styleClass="icon-item" style="-fx-padding: 3px">
+                        <ImageView fitWidth="24" preserveRatio="true">
+                            <image>
+                                <Image url="@../image/camera.png"/>
+                            </image>
+                        </ImageView>
+                    </Pane>
+                    <Pane styleClass="icon-item" style="-fx-padding: 3px">
+                        <ImageView fitWidth="24" preserveRatio="true">
+                            <image>
+                                <Image url="@../image/comment.png"/>
+                            </image>
+                        </ImageView>
+                    </Pane>
+                    <Pane styleClass="icon-item" style="-fx-padding: 3px">
+                        <ImageView fitWidth="24" preserveRatio="true">
+                            <image>
+                                <Image url="@../image/file-delete.png"/>
+                            </image>
+                        </ImageView>
+                    </Pane>
+                    <Pane styleClass="icon-item" style="-fx-padding: 3px">
+                        <ImageView fitWidth="24" preserveRatio="true">
+                            <image>
+                                <Image url="@../image/file-open.png"/>
+                            </image>
+                        </ImageView>
+                    </Pane>
+                    <Pane styleClass="icon-item" style="-fx-padding: 3px">
+                        <ImageView fitWidth="24" preserveRatio="true">
+                            <image>
+                                <Image url="@../image/comment.png"/>
+                            </image>
+                        </ImageView>
+                    </Pane>
+                    <Pane styleClass="icon-item" style="-fx-padding: 3px">
+                        <ImageView fitWidth="24" preserveRatio="true">
+                            <image>
+                                <Image url="@../image/comment.png"/>
+                            </image>
+                        </ImageView>
+                    </Pane>
+                </HBox>
+            </right>
+        </BorderPane>
+    </top>
+    <center>
+        <SplitPane>
+        </SplitPane>
+    </center>
+</BorderPane>

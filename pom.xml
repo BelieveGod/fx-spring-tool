@@ -15,8 +15,8 @@
     <version>1.0-SNAPSHOT</version>
 
     <properties>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <fx.version>11.0.2</fx.version>
         <mssql-jdbc.version>7.0.0.jre8</mssql-jdbc.version>
@@ -26,11 +26,11 @@
     </properties>
 
     <dependencies>
-        <dependency>
+     <!--   <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
             <version>${fx.version}</version>
-        </dependency>
+        </dependency>-->
 
         <!-- begin=================== spring =========================-->
         <!-- https://mvnrepository.com/artifact/org.springframework/spring-context -->
@@ -105,18 +105,40 @@
             <artifactId>lombok</artifactId>
             <optional>true</optional>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.dom4j/dom4j -->
+        <dependency>
+            <groupId>org.dom4j</groupId>
+            <artifactId>dom4j</artifactId>
+            <version>2.1.1</version>
+        </dependency>
+
+        <!--JNA-->
+        <!--JNA is Java Native Access.It provides Java programs easy access to native shared libraries (DLLs on Windows) without writing anything -->
+        <!-- https://mvnrepository.com/artifact/net.java.dev.jna/jna -->
+        <dependency>
+            <groupId>net.java.dev.jna</groupId>
+            <artifactId>jna</artifactId>
+            <version>4.0.0</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/net.java.dev.jna/jna-platform -->
+        <dependency>
+            <groupId>net.java.dev.jna</groupId>
+            <artifactId>jna-platform</artifactId>
+            <version>4.0.0</version>
+        </dependency>
+
     </dependencies>
     <build>
         <plugins>
-            <plugin>
+           <!-- <plugin>
                 <groupId>org.openjfx</groupId>
                 <artifactId>javafx-maven-plugin</artifactId>
                 <version>0.0.8</version>
                 <configuration>
                     <mainClass>cn.nannar.tool.App</mainClass>
                 </configuration>
-            </plugin>
-            <!--<plugin>
+            </plugin>-->
+            <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
@@ -127,8 +149,8 @@
                         </exclude>
                     </excludes>
                 </configuration>
-            </plugin>-->
-            <plugin>
+            </plugin>
+           <!-- <plugin>
                 <groupId>io.github.fvarrui</groupId>
                 <artifactId>javapackager</artifactId>
                 <version>1.6.7</version>
@@ -139,9 +161,9 @@
                             <goal>package</goal>
                         </goals>
                         <configuration>
-                            <!-- mandatory -->
+                            &lt;!&ndash; mandatory &ndash;&gt;
                             <mainClass>cn.nannar.tool.Main</mainClass>
-                            <!-- optional -->
+                            &lt;!&ndash; optional &ndash;&gt;
                             <bundleJre>true</bundleJre>
                             <customizedJre>false</customizedJre>
                             <generateInstaller>false</generateInstaller>
@@ -151,7 +173,7 @@
                         </configuration>
                     </execution>
                 </executions>
-            </plugin>
+            </plugin>-->
 
         </plugins>
     </build>

@@ -1,0 +1,8 @@
+#menuCol{
+    /*-fx-pref-height: 625px;*/
+    -fx-pref-width: 140px;
+    -fx-border-color: whitesmoke;
+    -fx-background-color: #EBEBEB;
+    -fx-min-width: 140px;
+    -fx-padding: 10px;
+}

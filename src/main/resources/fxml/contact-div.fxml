@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.shape.Rectangle?>
+<fx:root type="javafx.scene.layout.BorderPane" xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml" styleClass="contact-div,icon-item"
+            >
+    <left>
+        <BorderPane>
+            <left>
+                <BorderPane>
+                    <center>
+                        <ImageView styleClass="hidden" fitWidth="10" fitHeight="10"
+                                   preserveRatio="true">
+                            <image>
+                                <Image url="@../image/close.png"></Image>
+                            </image>
+                        </ImageView>
+                    </center>
+                </BorderPane>
+            </left>
+            <!--头像-->
+            <center>
+                <fx:define>
+                    <!--                                    <Rectangle fx:id="recClip" width="45" height="45" arcHeight="10" arcWidth="10"></Rectangle>-->
+                </fx:define>
+                <ImageView fitWidth="45" fitHeight="45" preserveRatio="true">
+                    <image>
+                        <Image url="@../image/avatar.png"></Image>
+                    </image>
+                    <clip>
+                        <Rectangle fx:id="recClip" width="45" height="45" arcHeight="10" arcWidth="10"></Rectangle>
+                    </clip>
+                </ImageView>
+            </center>
+        </BorderPane>
+    </left>
+    <center>
+        <BorderPane style="-fx-padding: 3px 5px 5px 10px">
+            <!--昵称-->
+            <top>
+                <Label styleClass="nickName">
+                    项目助手
+                </Label>
+            </top>
+            <!--聊天内容概览-->
+            <bottom>
+                <Label styleClass="digest">
+                    你好！项目907即将到期，请
+                </Label>
+            </bottom>
+        </BorderPane>
+    </center>
+    <right>
+        <BorderPane>
+            <top>
+                <!--时间-->
+                <Label styleClass="time">
+                    14:55
+                </Label>
+            </top>
+        </BorderPane>
+    </right>
+</fx:root>

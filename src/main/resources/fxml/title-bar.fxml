@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.geometry.Insets?>
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="cn.nannar.tool.controller.TitleBarController"
+            fx:id="titleBorderpane"
+            onMousePressed="#onTitleBarMousePressed" onMouseDragged="#onTitleBarDrag">
+    <!--用户头像-->
+    <left>
+        <BorderPane>
+            <center>
+                <ImageView fitWidth="26" fitHeight="26" preserveRatio="true">
+                    <image>
+                        <Image url="@../image/avatar.png" />
+                    </image>
+                    <BorderPane.margin>
+                        <Insets left="15"/>
+                    </BorderPane.margin>
+                </ImageView>
+            </center>
+        </BorderPane>
+    </left>
+    <center>
+        <HBox spacing="10">
+            <BorderPane.margin>
+                <Insets left="250"/>
+            </BorderPane.margin>
+            <HBox spacing="0">
+
+                <ImageView fitHeight="30" preserveRatio="true">
+                    <image>
+                        <Image  url="@../image/search.png" />
+                    </image>
+                </ImageView>
+                <TextField fx:id="searchFd" promptText="搜索（ctrl+shift+f)"></TextField>
+            </HBox>
+            <ImageView fitWidth="30" fitHeight="30" preserveRatio="true">
+                <HBox.margin>
+                    <Insets left="50"/>
+                </HBox.margin>
+                <image>
+                    <Image  url="@../image/setting-filling.png" />
+                </image>
+            </ImageView>
+            <ImageView  fitHeight="30" preserveRatio="true">
+                <image>
+                    <Image  url="@../image/add.png" />
+                </image>
+            </ImageView>
+        </HBox>
+    </center>
+    <right>
+        <HBox fx:id="btnBar" spacing="10">
+            <ImageView fx:id="minusIv" fitWidth="30" fitHeight="30" preserveRatio="true"
+            onMouseClicked="#onClickMinimize" onMouseEntered="#onEnterMinimize" onMouseExited="#onExitMinimize">
+                <image>
+                    <Image  url="@../image/minus.png" />
+                </image>
+            </ImageView>
+            <ImageView fx:id="expandIv" fitWidth="30" fitHeight="30" preserveRatio="true" onMouseClicked="#onClickMaxmize"
+                       onMouseEntered="#onEnterMaximize" onMouseExited="#onExitMaximize">
+                <image>
+                    <Image  url="@../image/fullscreen-expand.png" />
+                </image>
+            </ImageView>
+            <ImageView fx:id="closeIv" fitWidth="30" fitHeight="30" preserveRatio="true" onMouseClicked="#onClickClose"
+                       onMouseEntered="#onEnterClose" onMouseExited="#onExitClose">
+                <image>
+                    <Image  url="@../image/close.png" />
+                </image>
+            </ImageView>
+        </HBox>
+    </right>
+</BorderPane>
