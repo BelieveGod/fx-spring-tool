@@ -3,7 +3,6 @@ package cn.nannar.tool;
 import cn.nannar.tool.common.util.SpringFxmlLoaderFactory;
 import cn.nannar.tool.common.util.WindowUtil;
 import cn.nannar.tool.config.SpringConfig;
-import cn.nannar.tool.window.TrainInfoUI;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -20,7 +19,6 @@ import org.springframework.context.ConfigurableApplicationContext;
  * @date 2022/12/21
  */
 public class FxGUI extends Application {
-    TrainInfoUI trainInfoUI;
 
     @Override
     public void start(Stage stage) throws Exception {

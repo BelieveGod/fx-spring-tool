@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.geometry.Insets?>
+<fx:root type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx"
+         xmlns:fx="http://javafx.com/fxml"
+         styleClass="message-div">
+    <BorderPane style="-fx-border-color: green">
+
+
+        <left>
+            <ImageView fitHeight="33" fitWidth="33" preserveRatio="true">
+                <image>
+                    <Image url="@../image/avatar.png"/>
+                </image>
+                <fx:define>
+                    <Rectangle fx:id="rect" width="33" height="33" arcWidth="10" arcHeight="10"></Rectangle>
+                </fx:define>
+                <clip>
+                    <fx:reference source="rect"></fx:reference>
+                </clip>
+            </ImageView>
+        </left>
+        <center>
+            <FlowPane styleClass="chat-other-content" prefWrapLength="250">
+                <BorderPane.margin>
+                    <Insets>
+                        <top>5</top>
+                        <left>5</left>
+                    </Insets>
+                </BorderPane.margin>
+                <Label wrapText="true">
+                    我要搭建机器人测试环境,我要搭建机器人测试环境,我要搭建机器人测试环境我要搭建机器人测试环境我要搭建机器人测试环境我要搭建机器人测试环境JIESU
+                </Label>
+            </FlowPane>
+        </center>
+        <right>
+
+        </right>
+    </BorderPane>
+</fx:root>

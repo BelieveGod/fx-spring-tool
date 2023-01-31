@@ -1,22 +1,6 @@
 package cn.nannar.tool;
 
-import cn.hutool.core.collection.CollUtil;
-import cn.nannar.tool.config.SpringConfig;
-import cn.nannar.tool.monitor.entity.TrainLog;
-import cn.nannar.tool.monitor.mapper.TrainLogMapper;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import javafx.application.Application;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.WebApplicationType;
-import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-
-import javax.sql.DataSource;
-import java.sql.*;
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * @author LTJ

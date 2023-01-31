@@ -9,6 +9,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.shape.Rectangle?>
+<?import cn.nannar.tool.controller.MessageDiv?>
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="cn.nannar.tool.controller.ChaPaneController"
@@ -22,8 +23,11 @@
                             <image>
                                 <Image url="@../image/avatar.png"></Image>
                             </image>
+                            <fx:define>
+                                <Rectangle fx:id="rect" width="33" height="33" arcWidth="10" arcHeight="10"></Rectangle>
+                            </fx:define>
                             <clip>
-                                <Rectangle width="33" height="33" arcWidth="10" arcHeight="10"></Rectangle>
+                               <fx:reference source="rect"></fx:reference>
                             </clip>
                         </ImageView>
                     </left>
@@ -107,7 +111,31 @@
         </BorderPane>
     </top>
     <center>
-        <SplitPane>
+        <SplitPane orientation="VERTICAL" dividerPositions="0.7">
+            <BorderPane>
+                <center>
+                    <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="ALWAYS">
+                        <VBox spacing="20" style="-fx-border-color: red">
+                            <MessageDiv alignment="CENTER_LEFT"></MessageDiv>
+                            <MessageDiv alignment="CENTER_LEFT"></MessageDiv>
+                        </VBox>
+                    </ScrollPane>
+                </center>
+                <bottom>
+                    <HBox></HBox>
+                </bottom>
+            </BorderPane>
+
+
+            <BorderPane>
+                <top>
+                    <HBox></HBox>
+                </top>
+                <center>
+                    <TextArea></TextArea>
+                </center>
+                <HBox></HBox>
+            </BorderPane>
         </SplitPane>
     </center>
 </BorderPane>

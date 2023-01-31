@@ -163,3 +163,18 @@ StackPane
     -fx-text-fill: #AEAEB2;
     -fx-font-size: 12px;
 }
+
+.chat-other-content{
+    -fx-padding: 7px;
+    -fx-background-color: #79B8F9;
+    -fx-alignment: center;
+    -fx-background-radius: 10px;
+    -fx-border-color: pink;
+}
+
+.message-div{
+    -fx-pref-width: 250px;
+    -fx-min-width: 100px;
+    -fx-max-width: 250px;
+    -fx-border-color: orange;
+}
