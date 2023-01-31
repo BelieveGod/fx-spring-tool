@@ -117,7 +117,17 @@
                     <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="ALWAYS">
                         <VBox spacing="20" style="-fx-border-color: red">
                             <MessageDiv alignment="CENTER_LEFT"></MessageDiv>
+                            <MessageDiv alignment="CENTER_RIGHT"></MessageDiv>
                             <MessageDiv alignment="CENTER_LEFT"></MessageDiv>
+                            <MessageDiv alignment="CENTER_RIGHT"></MessageDiv>
+                            <MessageDiv alignment="CENTER_LEFT"></MessageDiv>
+                            <MessageDiv alignment="CENTER_RIGHT"></MessageDiv>
+                            <MessageDiv alignment="CENTER_LEFT"></MessageDiv>
+                            <MessageDiv alignment="CENTER_RIGHT"></MessageDiv>
+                            <MessageDiv alignment="CENTER_LEFT"></MessageDiv>
+                            <MessageDiv alignment="CENTER_RIGHT"></MessageDiv>
+                            <MessageDiv alignment="CENTER_LEFT"></MessageDiv>
+                            <MessageDiv alignment="CENTER_RIGHT"></MessageDiv>
                         </VBox>
                     </ScrollPane>
                 </center>
@@ -134,7 +144,16 @@
                 <center>
                     <TextArea></TextArea>
                 </center>
-                <HBox></HBox>
+                <bottom>
+                    <HBox alignment="BOTTOM_RIGHT">
+                        <Label>
+                            按ctrl+enter 发送消息
+                        </Label>
+                        <Button>
+                            发送
+                        </Button>
+                    </HBox>
+                </bottom>
             </BorderPane>
         </SplitPane>
     </center>

@@ -12,8 +12,8 @@
 <?import javafx.geometry.Insets?>
 <fx:root type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx"
          xmlns:fx="http://javafx.com/fxml"
-         styleClass="message-div">
-    <BorderPane style="-fx-border-color: green">
+         >
+    <BorderPane styleClass="message-div" style="-fx-border-color: green">
 
 
         <left>
@@ -30,7 +30,7 @@
             </ImageView>
         </left>
         <center>
-            <FlowPane styleClass="chat-other-content" prefWrapLength="250">
+            <StackPane styleClass="chat-other-content" >
                 <BorderPane.margin>
                     <Insets>
                         <top>5</top>
@@ -40,7 +40,7 @@
                 <Label wrapText="true">
                     我要搭建机器人测试环境,我要搭建机器人测试环境,我要搭建机器人测试环境我要搭建机器人测试环境我要搭建机器人测试环境我要搭建机器人测试环境JIESU
                 </Label>
-            </FlowPane>
+            </StackPane>
         </center>
         <right>
 
